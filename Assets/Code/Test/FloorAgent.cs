@@ -20,7 +20,6 @@ public class FloorAgent : Agent
         transform.rotation = new Quaternion(0, 0, 0, 0);
         transform.Rotate(new Vector3(1, 0, 0), Random.Range(-10f, 10f));
         transform.Rotate(new Vector3(0, 0, 1), Random.Range(-10f, 10f));
-        // 바닥이 기울어진 상태에서 공이 굴러가도록 하기 위해 x,z축을 랜덤으로 살짝 회전
 
         ballRigidbody.velocity = Vector3.zero;
         ballTransform.localPosition = new Vector3(Random.Range(-1.5f, 1.5f), 1.5f, Random.Range(-1.5f, 1.5f));
@@ -31,7 +30,6 @@ public class FloorAgent : Agent
         sensor.AddObservation(transform.rotation.z);
         sensor.AddObservation(transform.rotation.x);
         sensor.AddObservation(ballTransform.position - transform.position);
-        // 공과 바닥 사이의 위치 차이 관측값
         sensor.AddObservation(ballRigidbody.velocity);
     }
 
