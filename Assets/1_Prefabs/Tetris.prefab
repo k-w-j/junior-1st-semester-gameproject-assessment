@@ -148,8 +148,8 @@ GameObject:
   - component: {fileID: 5203660762466312763}
   - component: {fileID: 8575486573368701136}
   - component: {fileID: 8497454331038585229}
-  m_Layer: 0
-  m_Name: Floor (2)
+  m_Layer: 15
+  m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -253,8 +253,8 @@ GameObject:
   - component: {fileID: 8839723354748923065}
   - component: {fileID: 5036496648572114461}
   - component: {fileID: 6928164261326048617}
-  m_Layer: 0
-  m_Name: Floor (1)
+  m_Layer: 15
+  m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -506,8 +506,8 @@ GameObject:
   - component: {fileID: 2773413850691808376}
   - component: {fileID: 7070833627079141719}
   - component: {fileID: 4677992235327988910}
-  m_Layer: 0
-  m_Name: Floor (3)
+  m_Layer: 15
+  m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -645,8 +645,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7905079058676561944}
   - component: {fileID: 7142651421344521384}
-  m_Layer: 0
-  m_Name: Floor (4)
+  m_Layer: 15
+  m_Name: Wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -709,7 +709,7 @@ PrefabInstance:
     - target: {fileID: 2803519097728647349, guid: f2c2266b618ac884bab24accc35fdee3,
         type: 3}
       propertyPath: m_BrainParameters.VectorObservationSize
-      value: 8
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2803519097728647349, guid: f2c2266b618ac884bab24accc35fdee3,
         type: 3}
@@ -745,6 +745,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_BrainParameters.m_ActionSpec.BranchSizes.Array.data[1]
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7908274748345224814, guid: f2c2266b618ac884bab24accc35fdee3,
+        type: 3}
+      propertyPath: jumpForce
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7908274748345224814, guid: f2c2266b618ac884bab24accc35fdee3,
         type: 3}

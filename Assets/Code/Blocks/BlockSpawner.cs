@@ -13,6 +13,7 @@ namespace Code.Blocks
         [SerializeField] private Transform minRange;
         [Space]
         [SerializeField] private float spawnInterval = 2.0f;
+		[SerializeField] private bool isAuto = true;
 
         public List<GameObject> SpawnedBlocks { get; private set; }
         
@@ -25,6 +26,9 @@ namespace Code.Blocks
 
         private void Update()
         {
+			if(isAuto == false)
+				return;
+
             _timer += Time.deltaTime;
             if (_timer >= spawnInterval)
             {

@@ -14,6 +14,7 @@ namespace Code.Agent
         [Header("Layers")]
         [SerializeField] private LayerMask whatIsFloor;
         [SerializeField] private LayerMask whatIsBlock;
+        [SerializeField] private LayerMask whatIsWall;
 
         [Header("Move Settings")]
         [SerializeField] private float moveSpeed = 5f;
@@ -147,14 +148,19 @@ namespace Code.Agent
                 return;
             }
 
+            if (((1 << other.gameObject.layer) & whatIsWall) != 0)
+            {
+                AddReward(-1f); 
+            }
+
             if (((1 << other.gameObject.layer) & whatIsBlock) != 0)
             {
                 Vector3 normal = other.contacts[0].normal;
 
-                if (normal.y > 0.7f) 
+                if (normal.y > 0.2f) 
                 {
                     _isGrounded = true;
-                    AddReward(0.5f);
+                    AddReward(5f);
                 }
                 else if (normal.y < -0.7f) 
                 {
@@ -182,6 +188,16 @@ namespace Code.Agent
             {
                 _isGrounded = false;
             }
+        }
+
+        private bool IsSameLayer(LayerMask layerMask, LayerMask layerMask2)
+        {
+            if (((1 << layerMask) & layerMask2) != 0)
+            {
+                return true;
+            }
+
+            return false;
         }
     }
 }
