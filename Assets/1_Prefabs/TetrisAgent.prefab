@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2803519097728647349}
   - component: {fileID: 7908274748345224814}
   - component: {fileID: 4543862345775076230}
+  - component: {fileID: 7421540064547697749}
   m_Layer: 6
   m_Name: TetrisAgent
   m_TagString: Untagged
@@ -122,8 +123,6 @@ MonoBehaviour:
     m_Bits: 32768
   moveSpeed: 10
   jumpForce: 5
-  aliveReward: 0.001
-  movePenalty: -0.0005
   hitPenalty: -1
   surviveBlockReward: 0.2
 --- !u!114 &4543862345775076230
@@ -140,6 +139,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DecisionPeriod: 5
   TakeActionsBetweenDecisions: 1
+--- !u!114 &7421540064547697749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 370379043146474001}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SensorName: RayPerceptionSensor
+  m_DetectableTags:
+  - Block
+  m_RaysPerDirection: 3
+  m_MaxRayDegrees: 70
+  m_SphereCastRadius: 0.5
+  m_RayLength: 20
+  m_RayLayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967291
+  m_ObservationStacks: 1
+  m_AlternatingRayOrder: 1
+  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
+  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
+  m_StartVerticalOffset: 0
+  m_EndVerticalOffset: 0
 --- !u!1 &4072578027705213004
 GameObject:
   m_ObjectHideFlags: 0

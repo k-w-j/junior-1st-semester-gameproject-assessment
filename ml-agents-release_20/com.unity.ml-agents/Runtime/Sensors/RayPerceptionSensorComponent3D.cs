@@ -24,7 +24,7 @@ namespace Unity.MLAgents.Sensors
         }
 
         [HideInInspector, SerializeField, FormerlySerializedAs("endVerticalOffset")]
-        [Range(-10f, 10f)]
+        [Range(-720f, 720f)]
         [Tooltip("Ray end is offset up or down by this amount.")]
         float m_EndVerticalOffset;
 

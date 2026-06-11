@@ -1,6 +1,8 @@
 using Code.Blocks;
+using TMPro;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Code.Agent
@@ -10,6 +12,8 @@ namespace Code.Agent
     {
         [Header("References")]
         [SerializeField] private BlockSpawner blockSpawner;
+
+        [SerializeField] private TextMeshProUGUI wer;
 
         [Header("Layers")]
         [SerializeField] private LayerMask whatIsFloor;
@@ -21,10 +25,9 @@ namespace Code.Agent
         [SerializeField] private float jumpForce = 8f;
 
         [Header("Rewards")]
-        [SerializeField] private float aliveReward = 0.001f;
-        [SerializeField] private float movePenalty = -0.0005f;
         [SerializeField] private float hitPenalty = -1f;
         [SerializeField] private float surviveBlockReward = 0.2f;
+        [SerializeField] private bool isAuto;
 
         private Rigidbody _rigidbody;
         private Vector3 _startPosition;
@@ -66,7 +69,6 @@ namespace Code.Agent
             else
             {
                 velocity.x = 0f;
-                AddReward(movePenalty);
             }
 
             _rigidbody.velocity = new Vector3(velocity.x, velocity.y, 0f);
@@ -76,14 +78,8 @@ namespace Code.Agent
                 _rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
                 _isGrounded = false;
             }
-
-            AddReward(aliveReward);
             
-            if (blockSpawner.SpawnHeight.position.y <= transform.position.y)
-            {
-                AddReward(100f);
-                EndEpisode();
-            }
+            AddReward(0.001f); 
         }
 
         public override void Heuristic(in ActionBuffers actionsOut)
@@ -130,7 +126,7 @@ namespace Code.Agent
                 if (vertical < -1f) continue;
 
                 float horizontal = Mathf.Abs(block.position.x - transform.position.x);
-                float score = vertical * 2f + horizontal;
+                float score = vertical + horizontal * 0.5f;
 
                 if (score < bestScore)
                 {
@@ -152,7 +148,7 @@ namespace Code.Agent
 
             if (((1 << other.gameObject.layer) & whatIsWall) != 0)
             {
-                AddReward(-0.5f); 
+                AddReward(-5f); 
             }
 
             if (((1 << other.gameObject.layer) & whatIsBlock) != 0)
@@ -162,12 +158,20 @@ namespace Code.Agent
                 if (normal.y > 0.2f) 
                 {
                     _isGrounded = true;
-                    AddReward(10f);
+                    AddReward(5f);
                 }
                 else if (normal.y < -0.7f) 
                 {
-                    AddReward(-20.0f);
-                    EndEpisode();
+                    AddReward(-10.0f);
+                    
+                    if (isAuto)
+                    {
+                        EndEpisode();
+                    }
+                    else
+                    {
+                        other.gameObject.SetActive(false);
+                    }
                 }
             }
         }
@@ -186,16 +190,6 @@ namespace Code.Agent
             {
                 _isGrounded = false;
             }
-        }
-
-        private bool IsSameLayer(LayerMask layerMask, LayerMask layerMask2)
-        {
-            if (((1 << layerMask) & layerMask2) != 0)
-            {
-                return true;
-            }
-
-            return false;
         }
     }
 }
