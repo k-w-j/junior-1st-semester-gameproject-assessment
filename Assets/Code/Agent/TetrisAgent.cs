@@ -30,10 +30,10 @@ namespace Code.Agent
         private Vector3 _startPosition;
         private Quaternion _startRotation;
         private bool _isGrounded;
-
-        protected override void Awake()
+        
+        public override void Initialize()
         {
-            base.Awake();
+            base.Initialize();
             _startPosition = transform.position;
             _startRotation = transform.rotation;
             _rigidbody = GetComponent<Rigidbody>();
@@ -51,7 +51,7 @@ namespace Code.Agent
             _rigidbody.angularVelocity = Vector3.zero;
             _isGrounded = false;
         }
-
+    
         public override void OnActionReceived(ActionBuffers actions)
         {
             int moveAction = actions.DiscreteActions[0]; // 0: stop, 1: left, 2: right
@@ -60,13 +60,9 @@ namespace Code.Agent
             Vector3 velocity = _rigidbody.velocity;
 
             if (moveAction == 1)
-            {
                 velocity.x = -moveSpeed;
-            }
             else if (moveAction == 2)
-            {
                 velocity.x = moveSpeed;
-            }
             else
             {
                 velocity.x = 0f;
@@ -82,6 +78,12 @@ namespace Code.Agent
             }
 
             AddReward(aliveReward);
+            
+            if (blockSpawner.SpawnHeight.position.y <= transform.position.y)
+            {
+                AddReward(100f);
+                EndEpisode();
+            }
         }
 
         public override void Heuristic(in ActionBuffers actionsOut)
@@ -150,7 +152,7 @@ namespace Code.Agent
 
             if (((1 << other.gameObject.layer) & whatIsWall) != 0)
             {
-                AddReward(-1f); 
+                AddReward(-0.5f); 
             }
 
             if (((1 << other.gameObject.layer) & whatIsBlock) != 0)
@@ -160,16 +162,12 @@ namespace Code.Agent
                 if (normal.y > 0.2f) 
                 {
                     _isGrounded = true;
-                    AddReward(5f);
+                    AddReward(10f);
                 }
                 else if (normal.y < -0.7f) 
                 {
-                    SetReward(-1.0f);
+                    AddReward(-20.0f);
                     EndEpisode();
-                }
-                else 
-                {
-                    AddReward(-0.01f); 
                 }
             }
         }

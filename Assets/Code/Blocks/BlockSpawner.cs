@@ -15,6 +15,7 @@ namespace Code.Blocks
         [SerializeField] private float spawnInterval = 2.0f;
 		[SerializeField] private bool isAuto = true;
 
+        public Transform SpawnHeight => spawnHeight;
         public List<GameObject> SpawnedBlocks { get; private set; }
         
         private float _timer;
@@ -37,7 +38,7 @@ namespace Code.Blocks
             }
         }
 
-        private void SpawnRandomBlock()
+        public void SpawnRandomBlock()
         {
             if (blockListData.blockPrefabs.Length == 0) return;
             

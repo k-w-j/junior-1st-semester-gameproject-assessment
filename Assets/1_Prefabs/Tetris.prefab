@@ -398,6 +398,7 @@ MonoBehaviour:
   maxRange: {fileID: 5246954083985891269}
   minRange: {fileID: 7464363755494640022}
   spawnInterval: 2
+  isAuto: 1
 --- !u!1 &5857540136015925596
 GameObject:
   m_ObjectHideFlags: 0
@@ -749,7 +750,12 @@ PrefabInstance:
     - target: {fileID: 7908274748345224814, guid: f2c2266b618ac884bab24accc35fdee3,
         type: 3}
       propertyPath: jumpForce
-      value: 7
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7908274748345224814, guid: f2c2266b618ac884bab24accc35fdee3,
+        type: 3}
+      propertyPath: moveSpeed
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7908274748345224814, guid: f2c2266b618ac884bab24accc35fdee3,
         type: 3}
